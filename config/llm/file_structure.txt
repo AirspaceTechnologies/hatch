@@ -1,0 +1,46 @@
+% tree --gitignore
+.
+├── README.md
+├── app.py
+├── app_loop.py
+├── assistants
+│   ├── __init__.py
+│   └── hello_world_agent.py
+├── config
+│   ├── hello_world_agent.json
+│   └── llm
+│       ├── file_structure.txt
+│       ├── llm_help_file.txt
+│       └── project_summary.md
+├── export_assistant.sh
+├── import_assistant.py
+├── lib
+│   ├── __init__.py
+│   ├── assistant_base.py
+│   ├── cost_calculator.py
+│   ├── docs
+│   │   ├── example_curls.txt
+│   │   ├── hatch.jpg
+│   │   └── sample_agent.json
+│   ├── event_handler.py
+│   ├── interactive_loop.py
+│   ├── quick_chat.py
+│   ├── report_printer.py
+│   ├── session.py
+│   ├── thread_analyzer.py
+│   └── utilities.py
+├── pyproject.toml
+├── pytest.ini
+├── requirements.txt
+├── tests
+│   ├── __init__.py
+│   ├── test_assistant_base.py
+│   ├── test_event_handler.py
+│   ├── test_interactive_loop.py
+│   ├── test_quick_chat.py
+│   ├── test_session.py
+│   ├── test_thread_analyzer.py
+│   └── test_utilities.py
+└── thread_summary.py
+
+7 directories, 36 files

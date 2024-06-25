@@ -1,0 +1,12 @@
+# Generate list
+# find src -name "*.py" | grep -v "__init__.py" | pbcopy
+# or
+# git ls-files -c --exclude-standard
+
+
+# copy to clipboard
+# llm_help src/llm/llm_help_file.txt | pbcopy
+
+app.py
+lib/assistant_base.py
+lib/event_handler.py

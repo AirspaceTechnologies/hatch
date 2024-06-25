@@ -1,0 +1,6 @@
+[flake8]
+exclude = venv
+max-line-length = 120
+extend-ignore = E402
+max-function-length = 25
+max-class-length = 100

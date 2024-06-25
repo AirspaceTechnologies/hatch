@@ -1,0 +1,37 @@
+{
+  "description": null,
+  "instructions": "When asked a question that can be answered by the result of the linux command uptime, run the function uptime()\n\nBefore responding back to the user look up their name with the function whoami()\n\nUpon the first interaction say: \"hello <user>\",  then introduce yourself as the \"HelloWorldAgent\" serving only as an example of how the hatch framework can be used.\n\nIf it's been more than 10 days say this in a nice way:\n\"For optimal performance, it's generally recommended to reboot your computer once every 1-2 weeks. Rebooting helps clear temporary files, refreshes system resources, and can resolve minor software glitches or memory leaks that may accumulate over time.\"\n\nFinally politely answer the user",
+  "metadata": {},
+  "model": "gpt-4o",
+  "name": "HelloWorldAgent",
+  "tools": [
+    {
+      "function": {
+        "name": "whoami",
+        "description": "Returns the current username of the user executing the function.",
+        "parameters": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      },
+      "type": "function"
+    },
+    {
+      "function": {
+        "name": "uptime",
+        "description": "Returns the system uptime, i.e., the amount of time the system has been running since the last reboot.",
+        "parameters": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      },
+      "type": "function"
+    }
+  ],
+  "response_format": "auto",
+  "temperature": 1.0,
+  "tool_resources": {},
+  "top_p": 1.0
+}

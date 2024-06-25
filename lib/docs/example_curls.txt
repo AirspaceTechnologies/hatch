@@ -1,0 +1,76 @@
+
+OPEN_AI_DEBUG_THREAD='thread_PeaABHlz5qqyFkuIr3VwOoVg'
+
+# Get thread
+curl -s https://api.openai.com/v1/threads/${OPEN_AI_DEBUG_THREAD} \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $OPENAI_API_KEY" \
+  -H "OpenAI-Beta: assistants=v2" | jq
+
+
+# Get runs from thread
+curl -s https://api.openai.com/v1/threads/${OPEN_AI_DEBUG_THREAD}/runs \
+  -H "Authorization: Bearer $OPENAI_API_KEY" \
+  -H "Content-Type: application/json" \
+  -H "OpenAI-Beta: assistants=v2" | jq
+
+curl -s https://api.openai.com/v1/threads/${OPEN_AI_DEBUG_THREAD}/runs/run_j52yyf69V9Y9nVRWedMPlpjG/steps \
+  -H "Authorization: Bearer $OPENAI_API_KEY" \
+  -H "Content-Type: application/json" \
+  -H "OpenAI-Beta: assistants=v2" | jq
+
+
+# Get messages from thread
+curl -s https://api.openai.com/v1/threads/${OPEN_AI_DEBUG_THREAD}/messages \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $OPENAI_API_KEY" \
+  -H "OpenAI-Beta: assistants=v2" | jq
+
+
+
+
+#### 
+
+
+curl -s https://api.openai.com/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $OPENAI_API_KEY" \
+  -d '{
+     "model": "gpt-3.5-turbo",
+     "messages": [{"role": "user", "content": "What is Cinco de Mayo?"}],
+     "temperature": 0.9
+   }'
+
+
+curl https://api.openai.com/v1/audio/speech \
+  -H "Authorization: Bearer $OPENAI_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "tts-1",
+    "input": "Did you text me the list?",
+    "voice": "alloy"
+  }' \
+  --output speech.mp3
+
+
+
+
+curl -s https://api.openai.com/v1/moderations \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $OPENAI_API_KEY" \
+  -d '{
+    "input": "# Target IP: 10.129.206.249
+# Target Port: 21
+## Fawn Challenge
+
+### Tags Related to this challenge
+- FTP
+- Protocols
+- Reconnaissance
+- Anonymous/Guest Access
+
+## Data we have collected so far
+- **FTP Version**: vsftpd 3.0.3
+- **OS Type**: Unix
+"
+  }' | jq
