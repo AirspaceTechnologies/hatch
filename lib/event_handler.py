@@ -41,8 +41,9 @@ class EventHandler(AssistantEventHandler):
 
     def handle_run_failed(self, data):
         """Handle run failure event."""
-        print(f"Run failed: {data.last_error.code}\n{data.last_error.message}")
-        os._exit(1)
+        error_message = f"Run failed: {data.last_error.code}\n{data.last_error.message}"
+        print(error_message)
+        raise SystemExit(error_message)
 
     def on_run_step_done(self, run_step: RunStep) -> None:
         """Callback fired when a run step is completed."""
@@ -54,17 +55,19 @@ class EventHandler(AssistantEventHandler):
 
     def handle_tool_calls(self, run_step: RunStep):
         """Handle tool calls in a run step."""
-        assistant_id = run_step.assistant_id
-        assistant = get_assistant_instance(assistant_id, assistant_map).__class__.__name__
-
         for tool_call in run_step.step_details.tool_calls:
             if isinstance(tool_call, FunctionToolCall) and tool_call.type == "function":
                 function_name = tool_call.function.name
                 function_arguments = tool_call.function.arguments
 
+                # Parse JSON arguments first to catch malformed JSON early
                 function_arguments_dict = json.loads(function_arguments)
+                
+                # Get assistant info after JSON validation
+                assistant_id = run_step.assistant_id
+                assistant = get_assistant_instance(assistant_id, assistant_map).__class__.__name__
+                
                 formatted_args = "\n".join([f"{k}: {v}" for k, v in function_arguments_dict.items()])
-
                 title = f"{assistant} -> {function_name}()"
                 print_message("function_call", formatted_args, 0, title)
 

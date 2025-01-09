@@ -2,6 +2,7 @@ import pytest
 import json
 from unittest.mock import patch, MagicMock, PropertyMock
 from lib.event_handler import EventHandler
+from openai.types.beta.threads.runs import FunctionToolCall
 
 
 @pytest.fixture
@@ -90,13 +91,26 @@ def test_on_event_exception_handling(mock_get_assistant_instance, event_handler,
     assert "Test exception" in captured.out
 
 
-def test_handle_tool_calls_malformed_json(event_handler):
+@patch("lib.event_handler.get_assistant_instance")
+def test_handle_tool_calls_malformed_json(mock_get_assistant_instance, event_handler):
     """Test handling of malformed JSON in tool call arguments"""
+    # Setup mock assistant
+    mock_assistant = MagicMock()
+    mock_get_assistant_instance.return_value = mock_assistant
+    
+    # Setup mock run step with invalid JSON
     mock_run_step = MagicMock()
     mock_run_step.assistant_id = "test_id"
-    mock_run_step.step_details.tool_calls = [MagicMock()]
-    mock_run_step.step_details.tool_calls[0].type = "function"
-    mock_run_step.step_details.tool_calls[0].function.arguments = "invalid json"
+    
+    # Create a proper mock FunctionToolCall
+    mock_tool_call = MagicMock(spec=FunctionToolCall)
+    mock_tool_call.type = "function"
+    mock_tool_call.function = MagicMock()
+    mock_tool_call.function.name = "test_function"
+    mock_tool_call.function.arguments = "invalid json"
+    mock_tool_call.id = "test_id"
+    
+    mock_run_step.step_details.tool_calls = [mock_tool_call]
     
     with pytest.raises(json.JSONDecodeError):
         event_handler.handle_tool_calls(mock_run_step)
