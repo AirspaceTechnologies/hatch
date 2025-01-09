@@ -12,5 +12,7 @@ EventHandler Tests:
   - Added test_on_timeout
 
 Interactive Scenarios:
-- [ ] Write integration test for InteractiveLoop with EventHandler
-  - Pending: Need to understand InteractiveLoop implementation first
+- [x] Write integration test for InteractiveLoop with EventHandler
+  - Added test_interactive_loop_with_event_handler
+  - Verifies message processing through both components
+  - Confirms proper thread management
