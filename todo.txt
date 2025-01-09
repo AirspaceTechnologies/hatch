@@ -1,0 +1,16 @@
+Test Coverage Improvements
+
+EventHandler Tests:
+- [x] Test unexpectedly formatted data
+  - Added test_handle_requires_action_missing_data
+  - Added test_handle_tool_calls_malformed_json
+- [x] Test function calling errors
+  - Added test_handle_tool_call_invalid_function
+- [x] Test error handling scenarios
+  - Added test_on_event_exception_handling
+  - Added test_on_run_failed
+  - Added test_on_timeout
+
+Interactive Scenarios:
+- [ ] Write integration test for InteractiveLoop with EventHandler
+  - Pending: Need to understand InteractiveLoop implementation first
