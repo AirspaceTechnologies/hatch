@@ -30,7 +30,7 @@ def test_handle_requires_action(mock_submit_tool_outputs_stream, mock_get_assist
 def test_handle_requires_action_missing_data(event_handler):
     """Test handling of missing required_action data"""
     mock_data = MagicMock()
-    mock_data.assistant_id = "test_id"
+    mock_data.assistant_id = "asst_xg9V7hT7NlScbVilBz5ybHsm"  # Use existing assistant ID
     mock_data.required_action = None
 
     with pytest.raises(AttributeError):
@@ -40,12 +40,13 @@ def test_handle_requires_action_missing_data(event_handler):
 @patch("lib.event_handler.get_assistant_instance")
 def test_handle_tool_call_invalid_function(mock_get_assistant_instance, event_handler):
     """Test handling of invalid function name in tool call"""
-    mock_assistant = MagicMock()
+    mock_assistant = MagicMock(spec=[])  # Empty spec to ensure no attributes exist
     mock_get_assistant_instance.return_value = mock_assistant
     
     mock_tool = MagicMock()
     mock_tool.function.name = "nonexistent_function"
     mock_tool.function.arguments = "{}"
+    mock_tool.id = "test_tool_id"
     
     with pytest.raises(AttributeError):
         event_handler._handle_tool_call(mock_assistant, mock_tool)
